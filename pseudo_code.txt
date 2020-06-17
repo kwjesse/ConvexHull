@@ -1,0 +1,129 @@
+	
+	
+	definition compute_hull(points)
+		points.sort(points) return points in ascending order of point.x()
+		convex_hull(points) returns set of points of convex hull in clockwise order 
+		polygon = create lines from points
+		showHull(polygon)
+		
+
+	definition convex_hull(points)
+		if length of points <= 2
+			return points
+		elif length of points == 3
+			return clockwise(point1, point2, point3)
+		mid = floor(length of points / 2)
+		left = points from 0 to (mid - 1)
+		right = points from mid to (length of points - 1)
+		L = convex_hull(left)
+		R = convex_hull(right)
+		return merge(L, R)
+
+
+	definition clockwise(point1, point2, point3)
+		Create array to hold clockwise points
+		value = (point2.y() - point1.y()) * (point3.x() - point2.x()) -
+				(point2.x() - point1.x()) * (point3.y() - point2.y())
+		if value == clockwise 
+			return array[point1, point2, point3]
+		if value == counterclockwise
+			return array[point1, point3, point2]
+
+
+	definition merge(L, R)
+		Create array 
+		Lsize = length of L
+		Rsize = length of R
+		L_rightmost = 0
+		R_leftmost = 0
+		
+		for i in range of the size of L:
+			find the rightmost point of L
+		for i in range of the size of R:
+			find the leftmost point of R
+		
+		Ltangent_upper, Rtangent_upper = upper_tangent(L, R, L_rightmost, R_leftmost)
+		Ltangent_lower, Rtangent_lower = lower_tangent(L, R, L_rightmost, R_leftmost)
+		
+		append points to array from Ltangent_lower to Ltangent_upper
+		append points to array from Rtangent_upper to Rtangent_lower
+		return array
+
+
+	definition upper_tangent(L, R, L_rightmost, R_leftmost)
+		Create array 
+		Lsize = length of L
+		Rsize = length of R
+		Ltangent = L_rightmost
+		Rtangent = R_leftmost
+		
+		isFound = False
+		
+		while not isFound
+			while the oreintation of either incrementing or decrementing Ltangent and holding Rtangent constant 
+			is clockwise or co-linear
+				increment or decrement Ltangent
+			while the orientation of either incrementing or decrementing Rtangent and holding Ltangent constant 
+			is counterclockwise or co-linear
+				increment or decrement Rtangent
+				isFound = False
+		
+		return Ltangent, Rtangent
+		
+			
+	definition lower_tangent(L, R, L_rightmost, R_leftmost)
+		Create array 
+		Lsize = length of L
+		Rsize = length of R
+		Ltangent = L_rightmost
+		Rtangent = R_leftmost
+		
+		isFound = False
+		
+		while not isFound
+			while the oreintation of either incrementing or decrementing Rtangent and holding Ltangent constant 
+			is clockwise or co-linear
+				increment or decrement Rtangent
+			while the orientation of either incrementing or decrementing Ltangent and holding Rtangent constant 
+			is counterclockwise or co-linear
+				increment or decrement Ltangent
+				isFound = False
+		
+		return Ltangent, Rtangent
+
+
+	definition orientation(point1, point2, point3)
+		Create array to hold clockwise points
+		value = (point2.y() - point1.y()) * (point3.x() - point2.x()) -
+				(point2.x() - point1.x()) * (point3.y() - point2.y())
+		if value == co-linear
+			return 0
+		if value == clockwise 
+			return 1
+		return -1
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
